@@ -13,7 +13,7 @@
         </thead>
         <tbody>
             {% for grupo in grupos %}
-                <tr>
+                <tr>{# Comentario #}
                     <td>{{ grupo[0].descripcion }}</td>
                     <td>{{ grupo[1] }}</td>
                     <td>{{ grupo[0].tutor.nombre }}</td>
