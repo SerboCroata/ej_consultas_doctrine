@@ -149,6 +149,7 @@ class ConsultasController extends Controller
 
     /**
      * @Route("/ej10", name="ejercicio10")
+     * @Route("/ej11", name="ejercicio11")
      */
     public function ej10Action()
     {
@@ -166,6 +167,34 @@ class ConsultasController extends Controller
 
         return $this->render('consultas/grupos.html.twig', [
             'grupos' => $grupos
+        ]);
+    }
+
+    /**
+     * @Route("/alumnado/{id}", name="listado_grupo")
+     */
+    public function ej11Action($id)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $grupo = $em->getRepository('AppBundle:Grupo')->find($id);
+        if (null === $grupo) {
+            throw $this->createNotFoundException();
+        }
+
+        $alumnado = $em->createQueryBuilder()
+            ->select('a')
+            ->from('AppBundle:Alumno', 'a')
+            ->orderBy('a.apellidos', 'ASC')
+            ->addOrderBy('a.nombre', 'ASC')
+            ->where('a.grupo = :grupo')
+            ->setParameter('grupo', $grupo)
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('consultas/alumnado.html.twig', [
+            'alumnado' => $alumnado
         ]);
     }
 }
