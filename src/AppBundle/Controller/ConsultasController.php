@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Grupo;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -171,17 +172,12 @@ class ConsultasController extends Controller
     }
 
     /**
-     * @Route("/alumnado/{id}", name="listado_grupo")
+     * @Route("/alumnado/{grupo}", name="listado_grupo")
      */
-    public function ej11Action($id)
+    public function ej11Action(Grupo $grupo)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-
-        $grupo = $em->getRepository('AppBundle:Grupo')->find($id);
-        if (null === $grupo) {
-            throw $this->createNotFoundException();
-        }
 
         $alumnado = $em->createQueryBuilder()
             ->select('a')
