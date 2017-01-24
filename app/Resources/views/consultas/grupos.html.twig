@@ -16,7 +16,7 @@
                 <tr>{# Comentario #}
                     <td><a href="{{ path("listado_grupo", {'grupo': grupo[0].id }) }}">{{ grupo[0].descripcion }}</a></td>
                     <td>{{ grupo[1] }}</td>
-                    <td>{{ grupo[0].tutor.nombre }}</td>
+                    <td>{{ grupo[0].tutor }}</td>
                 </tr>
             {% endfor %}
         </tbody>
