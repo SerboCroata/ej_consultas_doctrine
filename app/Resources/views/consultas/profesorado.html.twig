@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Listado de profesorado</h1>
+    <h2>Encontrados {{ profesorado|length }} profesor{% if profesorado|length != 1 %}es{% endif %}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Apellidos</th>
+                <th>Nombre</th>
+                <th>Grupo tutoría</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for profesor in profesorado %}
+                <tr>
+                    <td>{{ profesor.apellidos }}</td>
+                    <td>{{ profesor.nombre }}</td>
+                    <td>
+                        {%- if profesor.tutoria -%}
+                            {{ profesor.tutoria.descripcion }}
+                        {%- else -%}
+                            No tiene
+                        {%- endif -%}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

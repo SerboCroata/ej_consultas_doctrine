@@ -193,4 +193,28 @@ class ConsultasController extends Controller
             'alumnado' => $alumnado
         ]);
     }
+
+    /**
+     * @Route("/ej16", name="listado_profesorado")
+     */
+    public function ej16Action()
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $profesorado = $em->createQueryBuilder()
+            ->select('p')
+            ->addSelect('g')
+            ->from('AppBundle:Profesor', 'p')
+            ->leftJoin('p.tutoria', 'g')
+            ->orderBy('p.apellidos', 'ASC')
+            ->addOrderBy('p.nombre', 'ASC')
+            ->where('SIZE(p.partes)=0')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('consultas/profesorado.html.twig', [
+            'profesorado' => $profesorado
+        ]);
+    }
 }
