@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Grupo;
+use AppBundle\Entity\Profesor;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -213,6 +214,49 @@ class ConsultasController extends Controller
 
         return $this->render('consultas/alumnado.html.twig', [
             'alumnado' => $alumnado
+        ]);
+    }
+
+    /**
+     * @Route("/ej12", name="ejercicio12")
+     */
+    public function ej12Action()
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $profesorado = $em->createQueryBuilder()
+            ->select('p')
+            ->from('AppBundle:Profesor', 'p')
+            ->orderBy('p.apellidos', 'ASC')
+            ->addOrderBy('p.nombre', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('consultas/profesorado_ej12.html.twig', [
+            'profesorado' => $profesorado
+        ]);
+    }
+
+    /**
+     * @Route("/profesorado/{id}", name="listado_partes_profesorado")
+     */
+    public function profesoradoPartesAction(Profesor $profesor)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $partes = $em->createQueryBuilder()
+            ->select('p')
+            ->from('AppBundle:Parte', 'p')
+            ->orderBy('p.fechaCreacion', 'DESC')
+            ->where('p.profesor = :profesor')
+            ->setParameter('profesor', $profesor)
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('consultas/partes.html.twig', [
+            'partes' => $partes
         ]);
     }
 

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Listado de partes</h1>
+    <h2>Encontrados {{ partes|length }} parte{% if partes|length != 1 %}s{% endif %}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Profesor</th>
+                <th>Estudiante</th>
+                <th>Descripción</th>
+                <th>Avisado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for parte in partes %}
+                <tr>
+                    <td>{{ parte.fechaCreacion | date('d-m-Y H:i') }}</a></td>
+                    <td>{{ parte.profesor }}</td>
+                    <td>{{ parte.alumno }}</td>
+                    <td>{{ parte.observaciones }}</td>
+                    <td>{{ parte.avisado ? 'SÍ' : 'NO' }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

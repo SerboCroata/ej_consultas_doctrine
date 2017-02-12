@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Listado de profesorado</h1>
+    <h2>Encontrados {{ profesorado|length }} profesor{% if profesorado|length != 1 %}es{% endif %}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for profesor in profesorado %}
+                <tr>
+                    <td><a href="{{ path('listado_partes_profesorado', {'id': profesor.id}) }}">{{ profesor }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
