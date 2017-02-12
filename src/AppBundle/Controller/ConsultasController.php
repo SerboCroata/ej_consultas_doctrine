@@ -349,7 +349,9 @@ class ConsultasController extends Controller
 
         $alumnado = $em->createQueryBuilder()
             ->select('a')
+            ->addSelect('g')
             ->from('AppBundle:Alumno', 'a')
+            ->join('a.grupo', 'g')
             ->orderBy('a.apellidos', 'ASC')
             ->addOrderBy('a.nombre', 'ASC')
             ->where('SIZE(a.partes)=0')
