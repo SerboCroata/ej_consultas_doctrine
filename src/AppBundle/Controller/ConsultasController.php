@@ -287,6 +287,27 @@ class ConsultasController extends Controller
     }
 
     /**
+     * @Route("/ej14/{texto}", name="ejercicio14")
+     */
+    public function ej14Action($texto)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $partes = $em->createQueryBuilder()
+            ->select('p')
+            ->from('AppBundle:Parte', 'p')
+            ->where('p.observaciones LIKE :texto')
+            ->setParameter('texto', '%' . $texto . '%')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('consultas/partes.html.twig', [
+            'partes' => $partes
+        ]);
+    }
+
+    /**
      * @Route("/ej16", name="listado_profesorado")
      */
     public function ej16Action()
