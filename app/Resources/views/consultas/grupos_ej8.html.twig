@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Listado de grupos</h1>
+    <h2>Encontrados {{ grupos|length }} grupo{% if grupos|length != 1 %}s{% endif %}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tutor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for grupo in grupos %}
+                <tr>
+                    <td>{{ grupo }}</td>
+                    <td>{{ grupo.tutor }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
