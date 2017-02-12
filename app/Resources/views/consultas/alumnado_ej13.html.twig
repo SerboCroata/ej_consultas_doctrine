@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Listado de alumnado</h1>
+    <h2>Encontrados {{ alumnado|length }} alumno{% if alumnado|length != 1 %}s{% endif %}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Apellidos</th>
+                <th>Nombre</th>
+                <th>Fecha nacimiento</th>
+                <th>Número de partes</th>
+                <th>Grupo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alumno in alumnado %}
+                <tr>
+                    <td>{{ alumno[0].apellidos }}</td>
+                    <td>{{ alumno[0].nombre }}</td>
+                    <td>{{ alumno[0].fechaNacimiento | date('d/m/Y') }}</td>
+                    <td>{{ alumno[1] }}</td>
+                    <td>{{ alumno[0].grupo.descripcion }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

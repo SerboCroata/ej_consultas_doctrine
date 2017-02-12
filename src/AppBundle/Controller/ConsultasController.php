@@ -265,6 +265,28 @@ class ConsultasController extends Controller
     }
 
     /**
+     * @Route("/ej13", name="ejercicio13")
+     */
+    public function ej13Action()
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $alumnado = $em->createQueryBuilder()
+            ->select('a')
+            ->addSelect('SIZE(a.partes)')
+            ->addSelect('g')
+            ->from('AppBundle:Alumno', 'a')
+            ->join('a.grupo', 'g')
+            ->orderBy('SIZE(a.partes)', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('consultas/alumnado_ej13.html.twig', [
+            'alumnado' => $alumnado
+        ]);
+    }
+
+    /**
      * @Route("/ej16", name="listado_profesorado")
      */
     public function ej16Action()
