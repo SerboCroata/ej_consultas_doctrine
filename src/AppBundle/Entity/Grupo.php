@@ -49,6 +49,15 @@ class Grupo
      * @ORM\ManyToMany(targetEntity="Profesor", mappedBy="grupos")
      */
     private $profesorado;
+
+    /**
+     * Convierte el grupo en una cadena
+     */
+    public function __toString()
+    {
+        return $this->getDescripcion();
+    }
+
     /**
      * Constructor
      */
