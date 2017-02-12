@@ -338,4 +338,26 @@ class ConsultasController extends Controller
             'profesorado' => $profesorado
         ]);
     }
+
+    /**
+     * @Route("/ej17", name="ejercicio17")
+     */
+    public function ej17Action()
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $alumnado = $em->createQueryBuilder()
+            ->select('a')
+            ->from('AppBundle:Alumno', 'a')
+            ->orderBy('a.apellidos', 'ASC')
+            ->addOrderBy('a.nombre', 'ASC')
+            ->where('SIZE(a.partes)=0')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('consultas/alumnado.html.twig', [
+            'alumnado' => $alumnado
+        ]);
+    }
 }
