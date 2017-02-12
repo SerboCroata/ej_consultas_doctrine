@@ -248,7 +248,11 @@ class ConsultasController extends Controller
 
         $partes = $em->createQueryBuilder()
             ->select('p')
+            ->addSelect('a')
+            ->addSelect('g')
             ->from('AppBundle:Parte', 'p')
+            ->join('p.alumno', 'a')
+            ->join('a.grupo', 'g')
             ->orderBy('p.fechaCreacion', 'DESC')
             ->where('p.profesor = :profesor')
             ->setParameter('profesor', $profesor)
